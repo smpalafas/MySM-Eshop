@@ -2,21 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="?android:selectableItemBackground">
 
     <TextView
         android:id="@+id/productNameTextView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Product Name"
+        android:text="Όνομα Προϊόντος"
+        android:textStyle="bold"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/productPriceTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/productDescriptionTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="$0.00"
-        android:textSize="18sp" />
+        android:text="Περιγραφή προϊόντος"
+        android:textSize="14sp"
+        android:paddingTop="4dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="4dp">
+
+        <TextView
+            android:id="@+id/productPriceTextView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Τιμή"
+            android:textSize="16sp"
+            android:textColor="#4CAF50" />
+
+        <TextView
+            android:id="@+id/productQuantityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Διαθέσιμο"
+            android:textSize="16sp"
+            android:gravity="end" />
+    </LinearLayout>
 </LinearLayout>
