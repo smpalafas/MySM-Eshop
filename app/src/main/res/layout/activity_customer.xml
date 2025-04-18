@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="24dp"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:gravity="center">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Καλωσήρθατε!"
+        android:text="Καλωσήρθατε !"
         android:textSize="24sp"
-        android:gravity="center"
-        android:padding="8dp"/>
+        android:paddingBottom="16dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/openShopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Μετάβαση στο Κατάστημα" />
 </LinearLayout>

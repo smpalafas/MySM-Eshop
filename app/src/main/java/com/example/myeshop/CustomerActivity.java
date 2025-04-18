@@ -1,32 +1,26 @@
 package com.example.myeshop;
 
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomerActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private ProductAdapter adapter;
-    private List<Product> productList;
-    private ProductRepository productRepo;
+    private Button openShopButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        openShopButton = findViewById(R.id.openShopButton);
 
-        // Φόρτωση προϊόντων από SQLite
-        productRepo = new ProductRepository(this);
-        productList = productRepo.getAllProducts();
-
-        adapter = new ProductAdapter(productList);
-        recyclerView.setAdapter(adapter);
+        openShopButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CustomerActivity.this, ShopActivity.class);
+            startActivity(intent);
+        });
     }
 }
