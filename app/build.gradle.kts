@@ -25,6 +25,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -32,10 +33,10 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation("androidx.appcompat:appcompat:1.4.1") // Για την Toolbar
+    implementation("androidx.recyclerview:recyclerview:1.2.1") // Για το RecyclerView
+    implementation("com.google.android.material:material:1.5.0") // Για το Material Design
+    testImplementation("junit:junit:4.13.2") // Εξάρτηση για τα τεστ
+    androidTestImplementation("androidx.test.ext:junit:1.1.3") // Εξάρτηση για τα Android tests
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0") // Εξάρτηση για Espresso
 }

@@ -47,10 +47,13 @@ public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.
         holder.quantityTextView.setText("Διαθέσιμο: " + product.getQuantity());
 
         holder.addToCartButton.setOnClickListener(v -> {
-            Cart.addProduct(product);
-            Toast.makeText(context, "Προστέθηκε στο καλάθι!", Toast.LENGTH_SHORT).show();
+            Cart.addProduct(product); // Προσθήκη προϊόντος στο καλάθι
+            Toast.makeText(context, "Προστέθηκε στο καλάθι!", Toast.LENGTH_SHORT).show(); // Ειδοποίηση χρήστη
+            // Ενημέρωση του RecyclerView ή άλλων UI στοιχείων εάν χρειάζεται
+            notifyDataSetChanged(); // Ενημερώνουμε το UI αν χρειάζεται
         });
     }
+
 
     @Override
     public int getItemCount() {

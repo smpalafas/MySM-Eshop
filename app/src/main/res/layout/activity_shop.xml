@@ -5,8 +5,19 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Προσθήκη Toolbar (Αν χρειάζεται) -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:title="Κατάστημα"
+        android:titleTextColor="#ffffff"/>
+
+    <!-- RecyclerView για εμφάνιση των προϊόντων -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp" />
 </LinearLayout>

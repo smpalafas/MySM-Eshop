@@ -10,8 +10,7 @@
         android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone" /> <!-- Ορίζουμε ότι είναι κρυφό αρχικά όταν το καλάθι είναι άδειο -->
+        android:layout_weight="1" />
 
     <!-- Το TextView που εμφανίζει το συνολικό ποσό -->
     <TextView
@@ -23,15 +22,4 @@
         android:textStyle="bold"
         android:gravity="end"
         android:paddingTop="16dp" />
-
-    <!-- Το κουμπί "Προσθήκη στο καλάθι" -->
-    <Button
-        android:id="@+id/addToCartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Προσθήκη στο καλάθι"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center"
-        android:padding="10dp" />
-
 </LinearLayout>

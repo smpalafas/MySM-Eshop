@@ -2,27 +2,42 @@ package com.example.myeshop;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
+
 
 public class Cart {
     private static final List<CartItem> cartItems = new ArrayList<>();
 
     public static void addProduct(Product product) {
+        // Ελέγχουμε αν το προϊόν υπάρχει ήδη στο καλάθι
         for (CartItem item : cartItems) {
             if (item.getProduct().getId() == product.getId()) {
-                item.increaseQuantity();
+                item.increaseQuantity(); // Αυξάνουμε την ποσότητα
+                Log.d("Cart", "Ποσότητα προϊόντος αυξήθηκε: " + item.getProduct().getTitle());
                 return;
             }
         }
-        cartItems.add(new CartItem(product));
+
+        // Αν το προϊόν δεν υπάρχει στο καλάθι, το προσθέτουμε
+        CartItem newItem = new CartItem(product);
+        cartItems.add(newItem);
+        Log.d("Cart", "Προϊόν προστέθηκε στο καλάθι: " + product.getTitle());
     }
+
 
     public static List<CartItem> getCartItems() {
         return cartItems;
     }
 
     public static void removeItem(CartItem item) {
-        cartItems.remove(item);
+        // Αν η ποσότητα είναι 0, αφαιρούμε το προϊόν από το καλάθι
+        if (item.getQuantity() == 0) {
+            cartItems.remove(item);
+            Log.d("Cart", "Προϊόν αφαιρέθηκε από το καλάθι: " + item.getProduct().getTitle());
+        }
     }
+
+
 
     public static void clearCart() {
         cartItems.clear();

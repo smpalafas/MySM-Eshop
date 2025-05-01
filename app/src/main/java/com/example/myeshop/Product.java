@@ -8,6 +8,7 @@ public class Product {
     private String quantity;
     private int subcategoryId;
 
+    // Κατασκευαστής με όλες τις απαιτούμενες παραμέτρους
     public Product(int id, String title, String description, double price, String quantity, int subcategoryId) {
         this.id = id;
         this.title = title;
@@ -17,6 +18,7 @@ public class Product {
         this.subcategoryId = subcategoryId;
     }
 
+    // Getter methods για τις παραμέτρους
     public int getId() { return id; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }

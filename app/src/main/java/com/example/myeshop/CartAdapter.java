@@ -42,26 +42,32 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         CartItem item = cartItems.get(position);
         Product product = item.getProduct();
 
+        // Ενημέρωση του UI με τα δεδομένα του προϊόντος
         holder.nameTextView.setText(product.getTitle());
         holder.priceTextView.setText("€" + product.getPrice());
         holder.quantityTextView.setText(String.valueOf(item.getQuantity()));
 
+        // Ενέργεια για το κουμπί "+" (Αύξηση ποσότητας)
         holder.plusButton.setOnClickListener(v -> {
-            item.increaseQuantity();
-            notifyItemChanged(position);
-            onCartChanged.run();
+            item.increaseQuantity();  // Αύξηση της ποσότητας
+            notifyItemChanged(position);  // Ενημέρωση της θέσης στο RecyclerView
+            onCartChanged.run();  // Ενημέρωση του συνολικού ποσού
         });
 
+        // Ενέργεια για το κουμπί "-" (Μείωση ποσότητας)
         holder.minusButton.setOnClickListener(v -> {
-            item.decreaseQuantity();
+            item.decreaseQuantity();  // Μείωση της ποσότητας
             if (item.getQuantity() == 0) {
-                Cart.removeItem(item);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, getItemCount());
+                // Αν η ποσότητα γίνει 0, αφαιρούμε το προϊόν από το καλάθι
+                Cart.removeItem(item);  // Αφαίρεση του προϊόντος από τη λίστα Cart
+                cartItems.remove(position);  // Αφαίρεση του προϊόντος από τη λίστα RecyclerView
+                notifyItemRemoved(position);  // Ενημέρωση του RecyclerView για την αφαίρεση
+                notifyItemRangeChanged(position, getItemCount());  // Ενημέρωση των υπολοίπων στοιχείων
             } else {
-                notifyItemChanged(position);
+                // Αν η ποσότητα είναι μεγαλύτερη από 0, ενημερώνουμε το UI για την αλλαγή
+                notifyItemChanged(position);  // Ενημέρωση της θέσης στο RecyclerView
             }
-            onCartChanged.run();
+            onCartChanged.run();  // Ενημέρωση του συνολικού ποσού
         });
     }
 
