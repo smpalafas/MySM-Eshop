@@ -1,10 +1,12 @@
 package com.example.myeshop;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,13 @@ public class CartDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_details);
+
+        // Προσθήκη του back button στο action bar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("Το καλάθι μου");
+        }
 
         recyclerView = findViewById(R.id.cartRecyclerView);
         totalTextView = findViewById(R.id.totalAmountTextView);
@@ -58,5 +67,15 @@ public class CartDetailsActivity extends AppCompatActivity {
             recyclerView.setVisibility(View.VISIBLE);
             totalTextView.setVisibility(View.VISIBLE);
         }
+    }
+
+    // Χειρισμός του back button στο action bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

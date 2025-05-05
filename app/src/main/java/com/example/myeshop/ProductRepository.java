@@ -14,59 +14,58 @@ public class ProductRepository {
     private static final String TAG = "ProductRepository";
 
     public ProductRepository(Context context) {
-        DBHelper dbHelper = new DBHelper(context);
-        db = dbHelper.getReadableDatabase();
+        try {
+            DBHelper dbHelper = new DBHelper(context);
+            db = dbHelper.getReadableDatabase();
+        } catch (Exception e) {
+            Log.e(TAG, "Σφάλμα κατά την αρχικοποίηση της βάσης δεδομένων: " + e.getMessage());
+        }
     }
 
     public List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<>();
 
         try {
+            if (db == null) {
+                Log.e(TAG, "Η βάση δεδομένων είναι null");
+                return productList;
+            }
+
             Cursor cursor = db.rawQuery("SELECT * FROM products", null);
 
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    int idIndex = cursor.getColumnIndex("id");
-                    int titleIndex = cursor.getColumnIndex("title");
-                    int descriptionIndex = cursor.getColumnIndex("description");
-                    int priceIndex = cursor.getColumnIndex("price");
-                    int quantityIndex = cursor.getColumnIndex("quantity");
-                    int subcategoryIdIndex = cursor.getColumnIndex("subcategory_id");
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        int idIndex = cursor.getColumnIndex("id");
+                        int titleIndex = cursor.getColumnIndex("title");
+                        int descriptionIndex = cursor.getColumnIndex("description");
+                        int priceIndex = cursor.getColumnIndex("price");
+                        int quantityIndex = cursor.getColumnIndex("quantity");
+                        int subcategoryIdIndex = cursor.getColumnIndex("subcategory_id");
 
-                    int id = cursor.getInt(idIndex != -1 ? idIndex : 0);
-                    String title = cursor.getString(titleIndex != -1 ? titleIndex : 1);
+                        // Έλεγχος ότι οι δείκτες είναι έγκυροι
+                        int id = (idIndex != -1) ? cursor.getInt(idIndex) : 0;
+                        String title = (titleIndex != -1) ? cursor.getString(titleIndex) : "Άγνωστο προϊόν";
+                        String description = (descriptionIndex != -1) ? cursor.getString(descriptionIndex) : "";
+                        double price = (priceIndex != -1) ? cursor.getDouble(priceIndex) : 0.0;
+                        String quantity = (quantityIndex != -1) ? cursor.getString(quantityIndex) : "Διαθέσιμο";
+                        int subcategoryId = (subcategoryIdIndex != -1) ? cursor.getInt(subcategoryIdIndex) : 0;
 
-                    // Χειρισμός της περίπτωσης που λείπει το πεδίο description
-                    String description = "";
-                    if (descriptionIndex != -1) {
-                        description = cursor.getString(descriptionIndex);
-                    }
+                        Product product = new Product(id, title, description, price, quantity, subcategoryId);
+                        productList.add(product);
+                        Log.d(TAG, "Φορτώθηκε προϊόν: " + title);
 
-                    double price = cursor.getDouble(priceIndex != -1 ? priceIndex : 2);
-
-                    // Χειρισμός της περίπτωσης που λείπει το πεδίο quantity
-                    String quantity = "Διαθέσιμο";
-                    if (quantityIndex != -1) {
-                        quantity = cursor.getString(quantityIndex);
-                    }
-
-                    // Χειρισμός της περίπτωσης που λείπει το πεδίο subcategory_id
-                    int subcategoryId = 0;
-                    if (subcategoryIdIndex != -1) {
-                        subcategoryId = cursor.getInt(subcategoryIdIndex);
-                    }
-
-                    Product product = new Product(id, title, description, price, quantity, subcategoryId);
-                    productList.add(product);
-
-                } while (cursor.moveToNext());
+                    } while (cursor.moveToNext());
+                } else {
+                    Log.d(TAG, "Δεν βρέθηκαν προϊόντα στη βάση δεδομένων");
+                }
                 cursor.close();
+            } else {
+                Log.e(TAG, "Επιστράφηκε null cursor");
             }
         } catch (Exception e) {
-            Log.e(TAG, "Error getting products: " + e.getMessage());
+            Log.e(TAG, "Σφάλμα κατά την ανάκτηση προϊόντων: " + e.getMessage());
         }
-
-
 
         return productList;
     }

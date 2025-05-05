@@ -23,10 +23,13 @@ public class AdminActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Φόρτωση προϊόντων από SQLite
-        productRepo = new ProductRepository(this);
+        // Χρήση getApplicationContext() αντί για this για να αποφύγουμε διαρροές μνήμης
+        productRepo = new ProductRepository(getApplicationContext());
         productList = productRepo.getAllProducts();
 
         adapter = new ProductAdapter(productList);
         recyclerView.setAdapter(adapter);
     }
+
+    
 }

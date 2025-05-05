@@ -19,8 +19,12 @@ public class CustomerActivity extends AppCompatActivity {
         openShopButton = findViewById(R.id.openShopButton);
 
         openShopButton.setOnClickListener(v -> {
+            // Απλά ανοίγουμε το ShopActivity χωρίς να κλείσουμε το CustomerActivity
             Intent intent = new Intent(CustomerActivity.this, ShopActivity.class);
             startActivity(intent);
+            // ΔΕΝ καλούμε finish() εδώ για να μπορεί ο χρήστης να επιστρέψει
         });
     }
+
+    // Δεν χρειάζεται να κάνουμε override το onBackPressed() επειδή θέλουμε την προεπιλεγμένη συμπεριφορά
 }

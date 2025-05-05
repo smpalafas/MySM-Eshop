@@ -20,9 +20,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        DataLoader loader = new DataLoader(this);
-        loader.loadDataIfNeeded();
 
+        // Αρχικοποίηση των δεδομένων μόνο μία φορά κατά την εκκίνηση
+        DataLoader loader = new DataLoader(getApplicationContext());
+        loader.loadDataIfNeeded();
 
         // Αρχικοποίηση λογαριασμών
         customers.put("customer1", "pass123");
@@ -44,12 +45,22 @@ public class LoginActivity extends AppCompatActivity {
 
         if (customers.containsKey(username) && customers.get(username).equals(password)) {
             Toast.makeText(this, "Είσοδος ως Πελάτης", Toast.LENGTH_SHORT).show();
-            // ξεκινάει δραστηριότητα για πελάτη
-            startActivity(new Intent(this, CustomerActivity.class));
+
+            // Ξεκινάει δραστηριότητα για πελάτη και κλείνουμε το LoginActivity
+            Intent intent = new Intent(this, CustomerActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish(); // Κλείσιμο του LoginActivity για να μην επιστρέφει εδώ με το back button
+
         } else if (admins.containsKey(username) && admins.get(username).equals(password)) {
             Toast.makeText(this, "Είσοδος ως Διαχειριστής", Toast.LENGTH_SHORT).show();
-            // ξεκινάει δραστηριότητα για admin
-            startActivity(new Intent(this, AdminActivity.class));
+
+            // Ξεκινάει δραστηριότητα για admin και κλείνουμε το LoginActivity
+            Intent intent = new Intent(this, AdminActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish(); // Κλείσιμο του LoginActivity για να μην επιστρέφει εδώ με το back button
+
         } else {
             Toast.makeText(this, "Λάθος στοιχεία", Toast.LENGTH_SHORT).show();
         }

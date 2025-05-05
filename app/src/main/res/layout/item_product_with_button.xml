@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/productName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Όνομα προϊόντος"
         android:textStyle="bold"
@@ -17,17 +17,16 @@
 
     <TextView
         android:id="@+id/productPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Τιμή"
         android:textSize="16sp"
         android:layout_marginBottom="8dp"/>
 
-    <!-- Αλλαγή από ImageButton σε Button για να συμφωνεί με το ShopProductAdapter.java -->
     <Button
         android:id="@+id/addToCartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Προσθήκη στο καλάθι"
-        android:contentDescription="Καλάθι" />
+        android:text="Προσθήκη στο καλάθι" />
+
 </LinearLayout>
