@@ -10,53 +10,48 @@ import java.util.List;
 
 public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.ProductViewHolder> {
 
-    private final List<Product> productList;
+    private final List<Product> products;
     private final Context context;
 
     public ShopProductAdapter(List<Product> products, Context context) {
-        this.productList = products;
+        this.products = products;
         this.context = context;
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView, descriptionTextView, priceTextView, quantityTextView;
+        TextView nameTextView, priceTextView;
         Button addToCartButton;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.productNameTextView);
-            descriptionTextView = itemView.findViewById(R.id.productDescriptionTextView);
-            priceTextView = itemView.findViewById(R.id.productPriceTextView);
-            quantityTextView = itemView.findViewById(R.id.productQuantityTextView);
+            nameTextView = itemView.findViewById(R.id.productName);
+            priceTextView = itemView.findViewById(R.id.productPrice);
             addToCartButton = itemView.findViewById(R.id.addToCartButton);
         }
     }
 
     @Override
-    public ShopProductAdapter.ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_product_with_button, parent, false);
+    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_product_with_button, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        Product product = productList.get(position);
+        Product product = products.get(position);
         holder.nameTextView.setText(product.getTitle());
-        holder.descriptionTextView.setText(product.getDescription());
         holder.priceTextView.setText("€" + product.getPrice());
-        holder.quantityTextView.setText("Διαθέσιμο: " + product.getQuantity());
 
         holder.addToCartButton.setOnClickListener(v -> {
-            Cart.addProduct(product); // Προσθήκη προϊόντος στο καλάθι
-            Toast.makeText(context, "Προστέθηκε στο καλάθι!", Toast.LENGTH_SHORT).show(); // Ειδοποίηση χρήστη
-            // Ενημέρωση του RecyclerView ή άλλων UI στοιχείων εάν χρειάζεται
-            notifyDataSetChanged(); // Ενημερώνουμε το UI αν χρειάζεται
+            Cart.addProduct(product);
+            Toast.makeText(context, "Προστέθηκε στο καλάθι", Toast.LENGTH_SHORT).show();
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return productList.size();
+        return products.size();
     }
 }
+

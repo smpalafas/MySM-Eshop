@@ -41,18 +41,7 @@ public class CartActivity extends AppCompatActivity {
         updateTotal();  // Ενημέρωση του συνολικού ποσού αρχικά
         checkIfCartIsEmpty();  // Ελέγχουμε αν το καλάθι είναι άδειο
 
-        // Έλεγχος για το κουμπί "Προσθήκη στο καλάθι"
-        Button addButton = findViewById(R.id.addToCartButton);  // Το ID του κουμπιού "Προσθήκη στο καλάθι"
-        addButton.setOnClickListener(v -> {
-            // Δημιουργούμε ένα νέο προϊόν και το προσθέτουμε στο καλάθι
-            Product product = new Product(1, "Όνομα Προϊόντος", "Περιγραφή προϊόντος", 10.0, "1", 101);
-            Cart.addProduct(product);  // Προσθήκη του προϊόντος στο καλάθι
-            cartItems = Cart.getCartItems();  // Ενημερώνουμε τη λίστα με τα προϊόντα του καλαθιού
-            adapter.notifyDataSetChanged();  // Ενημέρωση του RecyclerView
-            updateTotal();  // Ενημέρωση του συνολικού ποσού
-            checkIfCartIsEmpty();  // Ελέγχουμε αν το καλάθι είναι άδειο
-            Toast.makeText(CartActivity.this, "Προστέθηκε στο καλάθι!", Toast.LENGTH_SHORT).show();  // Εμφάνιση μηνύματος
-        });
+
     }
 
     // Ενημέρωση του συνολικού ποσού

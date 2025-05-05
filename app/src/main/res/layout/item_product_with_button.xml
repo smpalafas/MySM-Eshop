@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="12dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:background="@android:color/white">
 
     <TextView
-        android:id="@+id/productNameTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Όνομα Προϊόντος"
+        android:text="Όνομα προϊόντος"
         android:textStyle="bold"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_marginBottom="4dp"/>
 
     <TextView
-        android:id="@+id/productDescriptionTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Περιγραφή" />
-
-    <TextView
-        android:id="@+id/productPriceTextView"
+        android:id="@+id/productPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="€0.00" />
+        android:text="Τιμή"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
-        android:id="@+id/productQuantityTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ποσότητα" />
-
-    <Button
-        android:id="@+id/addToCartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Προσθήκη στο καλάθι"
-        android:layout_marginTop="8dp" />
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <ImageButton
+        android:id="@+id/addToCartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cart"
+        android:contentDescription="Καλάθι"
+        android:background="?attr/selectableItemBackgroundBorderless" />
 </LinearLayout>

@@ -1,70 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_marginBottom="8dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:orientation="horizontal"
+    android:padding="8dp">
 
-    <!-- Όνομα προϊόντος -->
     <TextView
         android:id="@+id/cartItemName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:text="Όνομα προϊόντος"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginBottom="4dp" />
+        android:text="Όνομα" />
 
-    <!-- Τιμή προϊόντος -->
     <TextView
         android:id="@+id/cartItemPrice"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Τιμή" />
+
+    <Button
+        android:id="@+id/cartItemMinus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="€0.00"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp" />
+        android:text="−" />
 
-    <!-- Γραμμή για την ποσότητα -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/cartItemQuantity"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="8dp">
+        android:padding="5dp"
+        android:text="1" />
 
-        <!-- Κουμπί μείωσης ποσότητας -->
-        <Button
-            android:id="@+id/cartItemMinus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="-"
-            android:layout_marginEnd="8dp"
-            android:textSize="18sp"
-            android:background="@drawable/button_background"
-            android:textColor="@android:color/black"/>
-
-        <!-- Εμφάνιση τρέχουσας ποσότητας -->
-        <TextView
-            android:id="@+id/cartItemQuantity"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="1"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_marginEnd="8dp"
-            android:textColor="@android:color/black"/>
-
-        <!-- Κουμπί αύξησης ποσότητας -->
-        <Button
-            android:id="@+id/cartItemPlus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="+"
-            android:textSize="18sp"
-            android:background="@drawable/button_background"
-            android:textColor="@android:color/black"/>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/cartItemPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+" />
 </LinearLayout>
