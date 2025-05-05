@@ -23,18 +23,11 @@
         android:textSize="16sp"
         android:layout_marginBottom="8dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Προσθήκη στο καλάθι"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp" />
-
-    <ImageButton
+    <!-- Αλλαγή από ImageButton σε Button για να συμφωνεί με το ShopProductAdapter.java -->
+    <Button
         android:id="@+id/addToCartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_cart"
-        android:contentDescription="Καλάθι"
-        android:background="?attr/selectableItemBackgroundBorderless" />
+        android:text="Προσθήκη στο καλάθι"
+        android:contentDescription="Καλάθι" />
 </LinearLayout>

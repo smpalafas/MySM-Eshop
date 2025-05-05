@@ -15,20 +15,42 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS products (" +
+        // Δημιουργία πίνακα categories
+        db.execSQL("CREATE TABLE IF NOT EXISTS categories (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL)");
+
+        // Δημιουργία πίνακα subcategories
+        db.execSQL("CREATE TABLE IF NOT EXISTS subcategories (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT NOT NULL, " +
-                "price REAL NOT NULL)");
+                "category_id INTEGER, " +
+                "FOREIGN KEY (category_id) REFERENCES categories(id))");
 
-        // Προσθήκη dummy προϊόντων
-        db.execSQL("INSERT INTO products (name, price) VALUES ('Laptop', 799.99)");
-        db.execSQL("INSERT INTO products (name, price) VALUES ('Smartphone', 499.99)");
-        db.execSQL("INSERT INTO products (name, price) VALUES ('Headphones', 149.99)");
+        // Δημιουργία πίνακα products με όλα τα απαραίτητα πεδία
+        db.execSQL("CREATE TABLE IF NOT EXISTS products (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "title TEXT NOT NULL, " +
+                "description TEXT, " +
+                "price REAL NOT NULL, " +
+                "quantity TEXT, " +
+                "subcategory_id INTEGER, " +
+                "FOREIGN KEY (subcategory_id) REFERENCES subcategories(id))");
+
+        // Προσθήκη δοκιμαστικών προϊόντων για άμεση χρήση
+        db.execSQL("INSERT INTO products (title, description, price, quantity) " +
+                "VALUES ('Laptop', 'Powerful laptop for all your needs', 799.99, 'Διαθέσιμο')");
+        db.execSQL("INSERT INTO products (title, description, price, quantity) " +
+                "VALUES ('Smartphone', 'Latest smartphone with great features', 499.99, 'Διαθέσιμο')");
+        db.execSQL("INSERT INTO products (title, description, price, quantity) " +
+                "VALUES ('Headphones', 'High quality sound experience', 149.99, 'Διαθέσιμο')");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS products");
+        db.execSQL("DROP TABLE IF EXISTS subcategories");
+        db.execSQL("DROP TABLE IF EXISTS categories");
         onCreate(db);
     }
 }
