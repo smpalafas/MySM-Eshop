@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,34 +51,48 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Product product = productList.get(position);
+
+        // Εμφάνιση του τίτλου και της τιμής
         holder.nameTextView.setText(product.getTitle());
         holder.priceTextView.setText("€" + product.getPrice());
-        holder.quantityTextView.setText(String.valueOf(quantities[position]));
 
-        // Όταν πατάς το κουμπί +
+        // Εμφάνιση της τρέχουσας ποσότητας που επιλέχθηκε από τον χρήστη
+        holder.quantityTextView.setText(String.valueOf(quantities[position]));  // Εμφανίζει την επιλεγμένη ποσότητα
+
+        // Εμφάνιση της διαθεσιμότητας του προϊόντος
+        TextView stockTextView = holder.itemView.findViewById(R.id.stockTextView);
+        stockTextView.setText("Διαθεσιμότητα: " + product.getQuantity());  // Εμφάνιση της διαθεσιμότητας
+
+        // Όταν πατάς το κουμπί "+"
         holder.plusButton.setOnClickListener(v -> {
-            quantities[position]++;
-            holder.quantityTextView.setText(String.valueOf(quantities[position]));
+            if (quantities[position] < product.getQuantity()) {  // Ελέγχουμε αν η ποσότητα είναι μικρότερη από τη διαθεσιμότητα
+                quantities[position]++;
+                holder.quantityTextView.setText(String.valueOf(quantities[position]));  // Ενημέρωση του TextView για την ποσότητα
+            } else {
+                Toast.makeText(holder.itemView.getContext(), "Δεν υπάρχουν αρκετά προϊόντα σε απόθεμα", Toast.LENGTH_SHORT).show();
+            }
         });
 
-        // Όταν πατάς το κουμπί -
+        // Όταν πατάς το κουμπί "-"
         holder.minusButton.setOnClickListener(v -> {
             if (quantities[position] > 0) {
                 quantities[position]--;
-                holder.quantityTextView.setText(String.valueOf(quantities[position]));
+                holder.quantityTextView.setText(String.valueOf(quantities[position]));  // Ενημέρωση του TextView για την ποσότητα
             }
         });
 
         // Όταν πατάς το κουμπί "Προσθήκη στο καλάθι"
         holder.addToCartButton.setOnClickListener(v -> {
             if (quantities[position] > 0) {
-                // Προσθέτουμε το προϊόν στο καλάθι
+                // Προσθήκη του προϊόντος στο καλάθι
                 CartManager.getInstance().addToCart(product, quantities[position]);
-                // Ενημερώνουμε το συνολικό ποσό
+                // Ενημέρωση του συνολικού ποσού (αν χρειάζεται)
                 updateTotal();
             }
         });
     }
+
+
 
     private void updateTotal() {
         double total = CartManager.getInstance().getTotal();

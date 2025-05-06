@@ -40,7 +40,7 @@ public class ProductRepository {
                         int titleIndex = cursor.getColumnIndex("title");
                         int descriptionIndex = cursor.getColumnIndex("description");
                         int priceIndex = cursor.getColumnIndex("price");
-                        int quantityIndex = cursor.getColumnIndex("quantity");
+                        int quantityIndex = cursor.getColumnIndex("quantity");  // Θα το κάνουμε int
                         int subcategoryIdIndex = cursor.getColumnIndex("subcategory_id");
 
                         // Έλεγχος ότι οι δείκτες είναι έγκυροι
@@ -48,7 +48,9 @@ public class ProductRepository {
                         String title = (titleIndex != -1) ? cursor.getString(titleIndex) : "Άγνωστο προϊόν";
                         String description = (descriptionIndex != -1) ? cursor.getString(descriptionIndex) : "";
                         double price = (priceIndex != -1) ? cursor.getDouble(priceIndex) : 0.0;
-                        String quantity = (quantityIndex != -1) ? cursor.getString(quantityIndex) : "Διαθέσιμο";
+
+                        // Αντιμετώπιση της ποσότητας (convert την quantity από String σε int)
+                        int quantity = (quantityIndex != -1) ? cursor.getInt(quantityIndex) : 0;  // Χρησιμοποιούμε getInt για την ποσότητα
                         int subcategoryId = (subcategoryIdIndex != -1) ? cursor.getInt(subcategoryIdIndex) : 0;
 
                         Product product = new Product(id, title, description, price, quantity, subcategoryId);
@@ -69,4 +71,5 @@ public class ProductRepository {
 
         return productList;
     }
+
 }

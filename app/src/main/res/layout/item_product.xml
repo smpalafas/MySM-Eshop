@@ -37,13 +37,17 @@
             android:textSize="16sp"
             android:textColor="#4CAF50" />
 
+        <!-- Προσθήκη του TextView για την εμφάνιση της διαθεσιμότητας -->
         <TextView
-            android:id="@+id/productQuantityTextView"
+            android:id="@+id/stockTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Διαθέσιμο"
+            android:text="Διαθεσιμότητα: 0"
             android:textSize="16sp"
+            android:textColor="#FF5722"
             android:gravity="end" />
+
+
     </LinearLayout>
 
     <LinearLayout

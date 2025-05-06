@@ -17,8 +17,9 @@
         <activity android:name=".ShopActivity" />
         <activity android:name=".CustomerActivity" />
         <activity android:name=".AdminActivity" />
+        <activity android:name=".PaymentActivity" />
 
-        <!-- Προσθήκη της CartDetailsActivity -->
+
         <activity android:name=".CartDetailsActivity" />
 
         <activity android:name=".LoginActivity"

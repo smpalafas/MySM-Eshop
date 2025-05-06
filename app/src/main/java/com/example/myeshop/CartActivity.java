@@ -1,5 +1,6 @@
 package com.example.myeshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,8 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
-import android.content.Intent;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +20,7 @@ public class CartActivity extends AppCompatActivity {
     private CartAdapter adapter;
     private TextView totalTextView;
     private List<CartItem> cartItems;
+    private Button paymentButton;  // Κουμπί Πληρωμής
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.cartRecyclerView);
         totalTextView = findViewById(R.id.totalAmountTextView);
+        paymentButton = findViewById(R.id.paymentButton);  // Ανάθεση του κουμπιού Πληρωμής
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -46,6 +47,13 @@ public class CartActivity extends AppCompatActivity {
 
         updateTotal();  // Ενημέρωση του συνολικού ποσού αρχικά
         checkIfCartIsEmpty();  // Ελέγχουμε αν το καλάθι είναι άδειο
+
+        // Όταν πατηθεί το κουμπί "Πληρωμή", ανοίγει η PaymentActivity
+        paymentButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
+            startActivity(intent);  // Άνοιγμα της PaymentActivity
+        });
+
     }
 
     // Ενημέρωση του συνολικού ποσού
@@ -78,19 +86,12 @@ public class CartActivity extends AppCompatActivity {
 
     // Χειρισμός του back button στο action bar και των επιλογών του μενού
     @Override
-
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();  // Πίσω στην προηγούμενη οθόνη όταν πατάς το back button
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void openCart() {
-        Intent intent = new Intent(this, CartDetailsActivity.class);  // Άνοιγμα της δραστηριότητας του καλαθιού
-        startActivity(intent);
     }
 
     // Όταν επανέρχεται η δραστηριότητα στο προσκήνιο ανανεώνουμε τα δεδομένα
