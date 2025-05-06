@@ -2,8 +2,8 @@ package com.example.myeshop;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,8 +40,6 @@ public class CustomerActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
-
-
         // Ρύθμιση κουμπιού για να ανοίγει το ShopActivity
         openShopButton = findViewById(R.id.openShopButton);
         openShopButton.setOnClickListener(v -> {
@@ -50,5 +48,23 @@ public class CustomerActivity extends AppCompatActivity {
             startActivity(intent);
             // Δεν καλούμε finish() για να μπορεί ο χρήστης να επιστρέψει στην CustomerActivity
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Φορτώνουμε το μενού από το XML
+        getMenuInflater().inflate(R.menu.menu_cart, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_cart) {
+            // Άνοιγμα της δραστηριότητας του καλαθιού
+            Intent intent = new Intent(CustomerActivity.this, CartDetailsActivity.class);  // Ανάλογα με την Activity που θέλεις να ανοίξεις
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

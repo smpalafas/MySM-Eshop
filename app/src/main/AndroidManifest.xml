@@ -18,6 +18,9 @@
         <activity android:name=".CustomerActivity" />
         <activity android:name=".AdminActivity" />
 
+        <!-- Προσθήκη της CartDetailsActivity -->
+        <activity android:name=".CartDetailsActivity" />
+
         <activity android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>

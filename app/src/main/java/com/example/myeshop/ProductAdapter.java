@@ -54,11 +54,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.priceTextView.setText("€" + product.getPrice());
         holder.quantityTextView.setText(String.valueOf(quantities[position]));
 
+        // Όταν πατάς το κουμπί +
         holder.plusButton.setOnClickListener(v -> {
             quantities[position]++;
             holder.quantityTextView.setText(String.valueOf(quantities[position]));
         });
 
+        // Όταν πατάς το κουμπί -
         holder.minusButton.setOnClickListener(v -> {
             if (quantities[position] > 0) {
                 quantities[position]--;
@@ -66,12 +68,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
         });
 
+        // Όταν πατάς το κουμπί "Προσθήκη στο καλάθι"
         holder.addToCartButton.setOnClickListener(v -> {
             if (quantities[position] > 0) {
-                listener.onAddToCart(product, quantities[position]);
+                // Προσθέτουμε το προϊόν στο καλάθι
+                CartManager.getInstance().addToCart(product, quantities[position]);
+                // Ενημερώνουμε το συνολικό ποσό
+                updateTotal();
             }
         });
     }
+
+    private void updateTotal() {
+        double total = CartManager.getInstance().getTotal();
+
+    }
+
 
     @Override
     public int getItemCount() {

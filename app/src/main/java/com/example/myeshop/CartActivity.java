@@ -52,7 +52,7 @@ public class CartActivity extends AppCompatActivity {
     private void updateTotal() {
         double total = 0.0;
         for (CartItem item : cartItems) {
-            total += item.getProduct().getPrice() * item.getQuantity();
+            total += item.getProduct().getPrice() * item.getQuantity();  // Χρησιμοποιούμε το getProduct() και getQuantity()
         }
         totalTextView.setText("Σύνολο: €" + String.format("%.2f", total));  // Ενημέρωση του συνολικού ποσού
     }
@@ -78,16 +78,15 @@ public class CartActivity extends AppCompatActivity {
 
     // Χειρισμός του back button στο action bar και των επιλογών του μενού
     @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        } else if (item.getItemId() == R.id.action_cart) {
-            openCart();  // Άνοιγμα του καλαθιού
+            onBackPressed();  // Πίσω στην προηγούμενη οθόνη όταν πατάς το back button
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void openCart() {
         Intent intent = new Intent(this, CartDetailsActivity.class);  // Άνοιγμα της δραστηριότητας του καλαθιού

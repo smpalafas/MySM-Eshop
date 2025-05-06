@@ -5,8 +5,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,42 +18,49 @@ public class CartDetailsActivity extends AppCompatActivity {
     private TextView totalTextView;
     private List<CartItem> cartItems;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_details);
 
-        // Προσθήκη του back button στο action bar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Το καλάθι μου");
-        }
+        // Ρύθμιση του back button στο action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Το καλάθι μου");
 
         recyclerView = findViewById(R.id.cartRecyclerView);
         totalTextView = findViewById(R.id.totalAmountTextView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Λήψη των στοιχείων του καλαθιού
-        cartItems = Cart.getCartItems();
+        // Λήψη των στοιχείων του καλαθιού από τον CartManager
+        cartItems = CartManager.getInstance().getCartItems();
 
-        // Αρχικοποίηση Adapter με callback για ενημέρωση συνολικού ποσού
-        adapter = new CartAdapter(cartItems, this::updateTotal);
+        // Δημιουργία του Runnable για να ενημερώνεται το συνολικό ποσό
+        Runnable onUpdate = new Runnable() {
+            @Override
+            public void run() {
+                updateTotal();  // Ενημέρωση του συνολικού ποσού
+            }
+        };
+
+        // Δημιουργία του CartAdapter και προσθήκη του Runnable
+        adapter = new CartAdapter(cartItems, onUpdate);
         recyclerView.setAdapter(adapter);
 
-        updateTotal();       // Ενημέρωση συνολικού ποσού αρχικά
-        checkIfCartIsEmpty(); // Απόκρυψη λίστας αν το καλάθι είναι άδειο
+        updateTotal();  // Ενημέρωση συνολικού ποσού αρχικά
+        checkIfCartIsEmpty();  // Ελέγχουμε αν το καλάθι είναι άδειο
     }
+
+
+
 
     // Ενημέρωση του συνολικού ποσού
     private void updateTotal() {
-        double total = 0.0;
-        for (CartItem item : cartItems) {
-            total += item.getProduct().getPrice() * item.getQuantity();
-        }
+        double total = CartManager.getInstance().getTotal();
         totalTextView.setText("Σύνολο: €" + String.format("%.2f", total));
     }
+
 
     // Έλεγχος αν το καλάθι είναι άδειο
     private void checkIfCartIsEmpty() {

@@ -4,15 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:gravity="center">
 
+    <!-- RecyclerView για εμφάνιση προϊόντων στο καλάθι -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:paddingBottom="16dp" />
 
+    <!-- Σύνολο του καλαθιού -->
     <TextView
         android:id="@+id/totalAmountTextView"
         android:layout_width="match_parent"
@@ -22,6 +26,16 @@
         android:textStyle="bold"
         android:gravity="end"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp" />
+        android:paddingBottom="16dp" />
+
+    <!-- Κουμπί για πληρωμή -->
+    <Button
+        android:id="@+id/paymentButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Πληρωμή"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>

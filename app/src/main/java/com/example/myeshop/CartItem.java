@@ -1,36 +1,44 @@
 package com.example.myeshop;
-
+import com.example.myeshop.Product;
 public class CartItem {
-    private Product product;
-    private int quantity;
+    private Product product;  // Το προϊόν
+    private int quantity;     // Η ποσότητα του προϊόντος
 
-    public CartItem(Product product) {
+    // Constructor για να δημιουργήσουμε ένα CartItem
+    public CartItem(Product product, int quantity) {
         this.product = product;
-        this.quantity = 1; // Αρχική ποσότητα όταν το προϊόν προστεθεί στο καλάθι
+        this.quantity = quantity;
     }
 
+    // Getter για το προϊόν
     public Product getProduct() {
         return product;
     }
 
+    // Getter για την ποσότητα
     public int getQuantity() {
         return quantity;
     }
 
-    // Μέθοδος για την αύξηση της ποσότητας του προϊόντος
-    public void increaseQuantity() {
-        quantity++;
+    // Setter για την ποσότητα (αν θέλεις να την ενημερώνεις)
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    // Μέθοδος για τη μείωση της ποσότητας του προϊόντος
+    // Μέθοδος για να αυξήσουμε την ποσότητα
+    public void increaseQuantity() {
+        this.quantity++;
+    }
+
+    // Μέθοδος για να μειώσουμε την ποσότητα
     public void decreaseQuantity() {
-        if (quantity > 1) {
-            quantity--;
+        if (this.quantity > 0) {
+            this.quantity--;
         }
     }
 
-    // Μέθοδος για την αφαίρεση του προϊόντος από το καλάθι αν η ποσότητα είναι 0
-    public boolean isEmpty() {
-        return quantity == 0;
+    // Μέθοδος για να υπολογίσουμε το συνολικό κόστος για αυτό το προϊόν στο καλάθι
+    public double getTotal() {
+        return product.getPrice() * quantity;
     }
 }

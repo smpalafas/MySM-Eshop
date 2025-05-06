@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
 
-
 public class Cart {
     private static final List<CartItem> cartItems = new ArrayList<>();
 
@@ -18,12 +17,11 @@ public class Cart {
             }
         }
 
-        // Αν το προϊόν δεν υπάρχει στο καλάθι, το προσθέτουμε
-        CartItem newItem = new CartItem(product);
+        // Αν το προϊόν δεν υπάρχει στο καλάθι, το προσθέτουμε με ποσότητα 1
+        CartItem newItem = new CartItem(product, 1); // Περάσαμε την ποσότητα 1
         cartItems.add(newItem);
         Log.d("Cart", "Προϊόν προστέθηκε στο καλάθι: " + product.getTitle());
     }
-
 
     public static List<CartItem> getCartItems() {
         return cartItems;
@@ -37,9 +35,8 @@ public class Cart {
         }
     }
 
-
-
     public static void clearCart() {
         cartItems.clear();
     }
 }
+
