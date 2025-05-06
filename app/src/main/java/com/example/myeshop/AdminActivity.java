@@ -1,13 +1,14 @@
 package com.example.myeshop;
 
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AdminActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity implements ProductAdapter.OnAddToCartClickListener {
 
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
@@ -22,14 +23,16 @@ public class AdminActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Φόρτωση προϊόντων από SQLite
-        // Χρήση getApplicationContext() αντί για this για να αποφύγουμε διαρροές μνήμης
         productRepo = new ProductRepository(getApplicationContext());
         productList = productRepo.getAllProducts();
 
-        adapter = new ProductAdapter(productList);
+        adapter = new ProductAdapter(productList, this);
         recyclerView.setAdapter(adapter);
     }
 
-    
+    @Override
+    public void onAddToCart(Product product, int quantity) {
+        Toast.makeText(this, quantity + "x " + product.getTitle() + " προστέθηκαν στο καλάθι!", Toast.LENGTH_SHORT).show();
+        // Εδώ μπορείς να το αποθηκεύσεις προσωρινά, να ενημερώσεις βάση, ή να το στείλεις σε καλάθι χρήστη
+    }
 }

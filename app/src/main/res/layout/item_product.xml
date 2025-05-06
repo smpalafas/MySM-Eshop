@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="Περιγραφή προϊόντος"
         android:textSize="14sp"
-        android:paddingTop="4dp"/>
+        android:paddingTop="4dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,5 +44,41 @@
             android:text="Διαθέσιμο"
             android:textSize="16sp"
             android:gravity="end" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:paddingTop="8dp">
+
+        <Button
+            android:id="@+id/minusButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="−" />
+
+        <TextView
+            android:id="@+id/quantityTextView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/plusButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="+" />
+
+        <Button
+            android:id="@+id/addToCartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="Καλάθι"
+            android:layout_marginStart="8dp"/>
     </LinearLayout>
 </LinearLayout>

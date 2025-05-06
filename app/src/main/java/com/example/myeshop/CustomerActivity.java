@@ -2,6 +2,7 @@ package com.example.myeshop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,8 +32,15 @@ public class CustomerActivity extends AppCompatActivity {
         productRepo = new ProductRepository(this);
         productList = productRepo.getAllProducts();
 
-        adapter = new ProductAdapter(productList);
+        adapter = new ProductAdapter(productList, new ProductAdapter.OnAddToCartClickListener() {
+            @Override
+            public void onAddToCart(Product product, int quantity) {
+                // εδώ αποθηκεύεις το προϊόν στο καλάθι (μπορείς να το κάνεις σε singleton ή SharedPreferences ή SQLite)
+            }
+        });
         recyclerView.setAdapter(adapter);
+
+
 
         // Ρύθμιση κουμπιού για να ανοίγει το ShopActivity
         openShopButton = findViewById(R.id.openShopButton);
