@@ -25,7 +25,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_cart_details);  // Αλλαγή layout στο activity_cart_details.xml
 
         // Προσθήκη του back button στο action bar
         ActionBar actionBar = getSupportActionBar();
@@ -36,7 +36,7 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.cartRecyclerView);
         totalTextView = findViewById(R.id.totalAmountTextView);
-        paymentButton = findViewById(R.id.paymentButton);  // Ανάθεση του κουμπιού Πληρωμής
+        paymentButton = findViewById(R.id.paymentButton);  // Σιγουρευόμαστε ότι το κουμπί είναι το σωστό από το activity_cart_details.xml
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -50,10 +50,10 @@ public class CartActivity extends AppCompatActivity {
 
         // Όταν πατηθεί το κουμπί "Πληρωμή", ανοίγει η PaymentActivity
         paymentButton.setOnClickListener(v -> {
+            // Εξασφαλίζουμε ότι η PaymentActivity θα ανοίξει σωστά
             Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
             startActivity(intent);  // Άνοιγμα της PaymentActivity
         });
-
     }
 
     // Ενημέρωση του συνολικού ποσού

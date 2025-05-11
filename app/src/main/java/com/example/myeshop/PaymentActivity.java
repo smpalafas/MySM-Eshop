@@ -27,7 +27,6 @@ public class PaymentActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(v -> {
             if (storePickupRadioButton.isChecked()) {
                 Toast.makeText(this, "Επιλέξατε Παραλαβή από το κατάστημα", Toast.LENGTH_SHORT).show();
-                // Εδώ μπορείς να κάνεις ό,τι θέλεις, π.χ. επιστροφή ή αποστολή δεδομένων στην επόμενη οθόνη
             } else if (deliveryRadioButton.isChecked()) {
                 Toast.makeText(this, "Επιλέξατε Delivery", Toast.LENGTH_SHORT).show();
             } else {
