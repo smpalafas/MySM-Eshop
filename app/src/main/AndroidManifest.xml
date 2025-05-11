@@ -20,7 +20,7 @@
         <activity android:name=".PaymentActivity" />
 
 
-        <activity android:name=".CartDetailsActivity" />
+        <activity android:name=".CartActivity" />
 
         <activity android:name=".LoginActivity"
             android:exported="true">

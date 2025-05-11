@@ -25,7 +25,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart_details);  // Αλλαγή layout στο activity_cart_details.xml
+        setContentView(R.layout.activity_cart);  // Φορτώνουμε το layout του καλαθιού
 
         // Προσθήκη του back button στο action bar
         ActionBar actionBar = getSupportActionBar();
@@ -36,13 +36,23 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.cartRecyclerView);
         totalTextView = findViewById(R.id.totalAmountTextView);
-        paymentButton = findViewById(R.id.paymentButton);  // Σιγουρευόμαστε ότι το κουμπί είναι το σωστό από το activity_cart_details.xml
+        paymentButton = findViewById(R.id.paymentButton);  // Ανάθεση του κουμπιού Πληρωμής
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // Ρύθμιση LayoutManager
 
-        // Φορτώνουμε τα προϊόντα στο καλάθι
-        cartItems = Cart.getCartItems();
-        adapter = new CartAdapter(cartItems, this::updateTotal);
+        // Φορτώνουμε τα προϊόντα στο καλάθι από τον CartManager
+        cartItems = CartManager.getInstance().getCartItems();
+
+        // Δημιουργούμε το Runnable για την ενημέρωση του συνολικού ποσού
+        Runnable onUpdate = new Runnable() {
+            @Override
+            public void run() {
+                updateTotal();  // Ενημέρωση του συνολικού ποσού
+            }
+        };
+
+        // Δημιουργία του adapter και προσθήκη του Runnable για ανανέωση
+        adapter = new CartAdapter(cartItems, onUpdate);
         recyclerView.setAdapter(adapter);
 
         updateTotal();  // Ενημέρωση του συνολικού ποσού αρχικά
@@ -50,7 +60,6 @@ public class CartActivity extends AppCompatActivity {
 
         // Όταν πατηθεί το κουμπί "Πληρωμή", ανοίγει η PaymentActivity
         paymentButton.setOnClickListener(v -> {
-            // Εξασφαλίζουμε ότι η PaymentActivity θα ανοίξει σωστά
             Intent intent = new Intent(CartActivity.this, PaymentActivity.class);
             startActivity(intent);  // Άνοιγμα της PaymentActivity
         });
@@ -60,7 +69,7 @@ public class CartActivity extends AppCompatActivity {
     private void updateTotal() {
         double total = 0.0;
         for (CartItem item : cartItems) {
-            total += item.getProduct().getPrice() * item.getQuantity();  // Χρησιμοποιούμε το getProduct() και getQuantity()
+            total += item.getProduct().getPrice() * item.getQuantity();  // Υπολογισμός του συνολικού ποσού
         }
         totalTextView.setText("Σύνολο: €" + String.format("%.2f", total));  // Ενημέρωση του συνολικού ποσού
     }
@@ -99,9 +108,10 @@ public class CartActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (adapter != null) {
-            adapter.notifyDataSetChanged();
-            updateTotal();
-            checkIfCartIsEmpty();
+            cartItems = CartManager.getInstance().getCartItems();  // Επαναφόρτωση των στοιχείων του καλαθιού
+            adapter.notifyDataSetChanged();  // Ενημέρωση του adapter
+            updateTotal();  // Ενημέρωση του συνολικού ποσού
+            checkIfCartIsEmpty();  // Ελέγχουμε αν το καλάθι είναι άδειο
         }
     }
 }

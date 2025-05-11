@@ -61,7 +61,7 @@ public class CustomerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_cart) {
             // Άνοιγμα της δραστηριότητας του καλαθιού
-            Intent intent = new Intent(CustomerActivity.this, CartDetailsActivity.class);  // Ανάλογα με την Activity που θέλεις να ανοίξεις
+            Intent intent = new Intent(CustomerActivity.this, CartActivity.class);  // Ανάλογα με την Activity που θέλεις να ανοίξεις
             startActivity(intent);
             return true;
         }

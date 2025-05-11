@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:scrollbars="vertical"
         android:visibility="gone" /> <!-- Ορίζουμε ότι είναι κρυφό αρχικά όταν το καλάθι είναι άδειο -->
 
     <!-- Το TextView που εμφανίζει το συνολικό ποσό -->
@@ -18,30 +19,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Σύνολο: €0.00"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="end"
-        android:paddingTop="16dp" />
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp" />
 
-    <!-- Το κουμπί "Προσθήκη στο καλάθι" -->
-    <Button
-        android:id="@+id/addToCartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Προσθήκη στο καλάθι"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center"
-        android:padding="10dp" />
-
-    <!-- Το κουμπί "Πληρωμή" -->
+    <!-- Κουμπί για πληρωμή -->
     <Button
         android:id="@+id/paymentButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:enabled="true"
-        android:text="Πληρωμή" />
+        android:text="Πληρωμή"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>

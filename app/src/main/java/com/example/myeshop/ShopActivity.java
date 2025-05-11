@@ -75,7 +75,7 @@ public class ShopActivity extends AppCompatActivity {
         try {
             if (item.getItemId() == R.id.action_cart) {
                 // Άνοιγμα της οθόνης του καλαθιού
-                Intent intent = new Intent(this, CartDetailsActivity.class);
+                Intent intent = new Intent(this, CartActivity.class);
                 startActivity(intent);
                 return true;
             }
