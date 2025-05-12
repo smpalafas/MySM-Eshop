@@ -110,4 +110,26 @@ public class CartActivity extends AppCompatActivity {
             checkIfCartIsEmpty();  // Ελέγχουμε αν το καλάθι είναι άδειο
         }
     }
+
+    // Στο σημείο που ολοκληρώνεται η παραγγελία και θέλουμε να αφαιρέσουμε τα προϊόντα
+    public void completeOrder() {
+        ProductRepository productRepo = new ProductRepository(this);
+
+        for (CartItem item : cartItems) {
+            int quantityPurchased = item.getQuantity();
+            Product product = item.getProduct();
+
+            // Ενημέρωση της ποσότητας για το κάθε προϊόν
+            productRepo.updateProductQuantity(product, quantityPurchased);
+        }
+
+        Toast.makeText(this, "Η παραγγελία σας καταχωρήθηκε επιτυχώς!", Toast.LENGTH_SHORT).show();
+        finish();  // Κλείνουμε την activity ή κάνουμε οποιαδήποτε άλλη ενέργεια
+    }
+
+
+
 }
+
+
+

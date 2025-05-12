@@ -17,22 +17,30 @@ public class ProductRepository {
     public ProductRepository(Context context) {
         try {
             DBHelper dbHelper = new DBHelper(context);
-            db = dbHelper.getReadableDatabase();
+            db = dbHelper.getWritableDatabase();  // Χρησιμοποιούμε getWritableDatabase για να έχουμε δικαιώματα εγγραφής
         } catch (Exception e) {
             Log.e(TAG, "Σφάλμα κατά την αρχικοποίηση της βάσης δεδομένων: " + e.getMessage());
         }
     }
 
-    public void updateProductQuantity(Product product) {
-        SQLiteDatabase db = getWritableDatabase();  // Χρησιμοποιούμε το writable database για να κάνουμε την ενημέρωση
-        ContentValues values = new ContentValues();
-        values.put("quantity", product.getQuantity());  // Ενημερώνουμε την ποσότητα του προϊόντος
+    // Μέθοδος για ενημέρωση της ποσότητας του προϊόντος
+    public void updateProductQuantity(Product product, int quantityPurchased) {
+        int newQuantity = product.getQuantity() - quantityPurchased;
 
-        // Ενημέρωση της βάσης δεδομένων για το συγκεκριμένο προϊόν
-        db.update("products", values, "id = ?", new String[]{String.valueOf(product.getId())});
+        if (newQuantity >= 0) {
+            // Δημιουργία ContentValues για την ενημέρωση της ποσότητας
+            ContentValues values = new ContentValues();
+            values.put("quantity", newQuantity);
+
+            // Ενημέρωση του προϊόντος στη βάση δεδομένων
+            db.update("products", values, "id = ?", new String[]{String.valueOf(product.getId())});
+            Log.d(TAG, "Η ποσότητα του προϊόντος ενημερώθηκε: " + product.getTitle() + " Νέα ποσότητα: " + newQuantity);
+        } else {
+            Log.e(TAG, "Δεν υπάρχει επαρκής ποσότητα για το προϊόν: " + product.getTitle());
+        }
     }
 
-
+    // Μέθοδος για να πάρω όλα τα προϊόντα από τη βάση δεδομένων
     public List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<>();
 
@@ -51,23 +59,19 @@ public class ProductRepository {
                         int titleIndex = cursor.getColumnIndex("title");
                         int descriptionIndex = cursor.getColumnIndex("description");
                         int priceIndex = cursor.getColumnIndex("price");
-                        int quantityIndex = cursor.getColumnIndex("quantity");  // Θα το κάνουμε int
+                        int quantityIndex = cursor.getColumnIndex("quantity");
                         int subcategoryIdIndex = cursor.getColumnIndex("subcategory_id");
 
                         // Έλεγχος ότι οι δείκτες είναι έγκυροι
-                        int id = (idIndex != -1) ? cursor.getInt(idIndex) : 0;
-                        String title = (titleIndex != -1) ? cursor.getString(titleIndex) : "Άγνωστο προϊόν";
-                        String description = (descriptionIndex != -1) ? cursor.getString(descriptionIndex) : "";
-                        double price = (priceIndex != -1) ? cursor.getDouble(priceIndex) : 0.0;
-
-                        // Αντιμετώπιση της ποσότητας (convert την quantity από String σε int)
-                        int quantity = (quantityIndex != -1) ? cursor.getInt(quantityIndex) : 0;  // Χρησιμοποιούμε getInt για την ποσότητα
-                        int subcategoryId = (subcategoryIdIndex != -1) ? cursor.getInt(subcategoryIdIndex) : 0;
+                        int id = cursor.getInt(idIndex);
+                        String title = cursor.getString(titleIndex);
+                        String description = cursor.getString(descriptionIndex);
+                        double price = cursor.getDouble(priceIndex);
+                        int quantity = cursor.getInt(quantityIndex);  // Πόσες μονάδες υπάρχουν
+                        int subcategoryId = cursor.getInt(subcategoryIdIndex);
 
                         Product product = new Product(id, title, description, price, quantity, subcategoryId);
                         productList.add(product);
-                        Log.d(TAG, "Φορτώθηκε προϊόν: " + title);
-
                     } while (cursor.moveToNext());
                 } else {
                     Log.d(TAG, "Δεν βρέθηκαν προϊόντα στη βάση δεδομένων");
@@ -82,5 +86,4 @@ public class ProductRepository {
 
         return productList;
     }
-
 }
