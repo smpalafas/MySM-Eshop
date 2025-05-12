@@ -20,14 +20,13 @@ public class CartActivity extends AppCompatActivity {
     private CartAdapter adapter;
     private TextView totalTextView;
     private List<CartItem> cartItems;
-    private Button paymentButton;  // Κουμπί Πληρωμής
+    private Button paymentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);  // Φορτώνουμε το layout του καλαθιού
 
-        // Προσθήκη του back button στο action bar
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -38,7 +37,7 @@ public class CartActivity extends AppCompatActivity {
         totalTextView = findViewById(R.id.totalAmountTextView);
         paymentButton = findViewById(R.id.paymentButton);  // Ανάθεση του κουμπιού Πληρωμής
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // Ρύθμιση LayoutManager
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Φορτώνουμε τα προϊόντα στο καλάθι από τον CartManager
         cartItems = CartManager.getInstance().getCartItems();
@@ -86,14 +85,12 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-    // Δημιουργία του μενού
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_cart, menu);  // Φορτώνουμε το μενού από το XML
         return true;
     }
 
-    // Χειρισμός του back button στο action bar και των επιλογών του μενού
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -103,7 +100,6 @@ public class CartActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Όταν επανέρχεται η δραστηριότητα στο προσκήνιο ανανεώνουμε τα δεδομένα
     @Override
     protected void onResume() {
         super.onResume();

@@ -1,5 +1,6 @@
 package com.example.myeshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,12 +27,21 @@ public class PaymentActivity extends AppCompatActivity {
         // Ρύθμιση του listener για το κουμπί Επιβεβαίωση
         confirmButton.setOnClickListener(v -> {
             if (storePickupRadioButton.isChecked()) {
+                // Αν επιλέξεις παραλαβή από το κατάστημα
                 Toast.makeText(this, "Επιλέξατε Παραλαβή από το κατάστημα", Toast.LENGTH_SHORT).show();
             } else if (deliveryRadioButton.isChecked()) {
+                // Αν επιλέξεις Delivery
                 Toast.makeText(this, "Επιλέξατε Delivery", Toast.LENGTH_SHORT).show();
+
+                // Εδώ ανοίγουμε τη δραστηριότητα DeliveryAddressActivity
+                Intent intent = new Intent(PaymentActivity.this, DeliveryAddressActivity.class);
+                intent.putExtra("delivery_method", "delivery");  // Περνάμε την επιλογή
+                startActivity(intent);  // Άνοιγμα της DeliveryAddressActivity
             } else {
+                // Αν δεν έχει επιλεγεί κάποια επιλογή
                 Toast.makeText(this, "Παρακαλώ επιλέξτε έναν τρόπο παράδοσης", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }

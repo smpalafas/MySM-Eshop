@@ -1,5 +1,6 @@
 package com.example.myeshop;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +22,16 @@ public class ProductRepository {
             Log.e(TAG, "Σφάλμα κατά την αρχικοποίηση της βάσης δεδομένων: " + e.getMessage());
         }
     }
+
+    public void updateProductQuantity(Product product) {
+        SQLiteDatabase db = getWritableDatabase();  // Χρησιμοποιούμε το writable database για να κάνουμε την ενημέρωση
+        ContentValues values = new ContentValues();
+        values.put("quantity", product.getQuantity());  // Ενημερώνουμε την ποσότητα του προϊόντος
+
+        // Ενημέρωση της βάσης δεδομένων για το συγκεκριμένο προϊόν
+        db.update("products", values, "id = ?", new String[]{String.valueOf(product.getId())});
+    }
+
 
     public List<Product> getAllProducts() {
         List<Product> productList = new ArrayList<>();

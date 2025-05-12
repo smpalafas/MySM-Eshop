@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Διεύθυνση -->
+    <EditText
+        android:id="@+id/addressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Διεύθυνση"
+        android:minHeight="48dp"
+        android:textSize="18sp" />
+
+    <!-- Αριθμός τηλεφώνου -->
+    <EditText
+        android:id="@+id/phoneEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Αριθμός τηλεφώνου"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:textSize="18sp" />
+
+    <!-- Επιλογή ώρας παράδοσης -->
+    <TimePicker
+        android:id="@+id/deliveryTimePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Επιβεβαίωση -->
+    <Button
+        android:id="@+id/confirmDeliveryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Επιβεβαίωση"
+        android:layout_marginTop="32dp"/>
+</LinearLayout>

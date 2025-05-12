@@ -49,18 +49,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.plusButton.setOnClickListener(v -> {
             item.increaseQuantity();
             onCartChanged.run();
-            notifyDataSetChanged();
+            notifyItemChanged(position); // Χρησιμοποιούμε notifyItemChanged αντί του notifyDataSetChanged
         });
 
         holder.minusButton.setOnClickListener(v -> {
             item.decreaseQuantity();
             if (item.getQuantity() <= 0) {
-                Cart.removeItem(item);
+                CartManager.getInstance().removeItem(item);
+                cartItems.remove(position); // Αφαίρεση του item από τη λίστα
+                notifyItemRemoved(position); // Ενημέρωση του RecyclerView
+            } else {
+                notifyItemChanged(position); // Ενημέρωση της ποσότητας
             }
             onCartChanged.run();
-            notifyDataSetChanged();
         });
     }
+
 
 
     @Override
