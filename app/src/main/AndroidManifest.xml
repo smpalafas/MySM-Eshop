@@ -16,7 +16,7 @@
 
         <activity android:name=".ShopActivity" />
         <activity android:name=".CustomerActivity" />
-        <activity android:name=".AdminActivity" />
+
         <activity android:name=".PaymentActivity" />
         <activity android:name=".DeliveryAddressActivity" />
         <activity android:name=".CartActivity" />

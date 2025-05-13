@@ -16,7 +16,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView registerLink;
 
     private HashMap<String, String> customers = new HashMap<>();
-    private HashMap<String, String> admins = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +26,9 @@ public class LoginActivity extends AppCompatActivity {
         DataLoader loader = new DataLoader(getApplicationContext());
         loader.loadDataIfNeeded();
 
-        // Προκαθορισμένοι χρήστες
+        // Προκαθορισμένοι πελάτες
         customers.put("customer1", "pass123");
         customers.put("customer2", "pass456");
-
-        admins.put("admin1", "admin123");
-        admins.put("admin2", "admin456");
 
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
@@ -57,13 +53,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Προκαθορισμένοι διαχειριστές
-        if (admins.containsKey(username) && admins.get(username).equals(password)) {
-            Toast.makeText(this, "Είσοδος ως Διαχειριστής", Toast.LENGTH_SHORT).show();
-            goToAdmin();
-            return;
-        }
-
         // Έλεγχος βάσης δεδομένων
         DBHelper dbHelper = new DBHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -74,16 +63,9 @@ public class LoginActivity extends AppCompatActivity {
         );
 
         if (cursor.moveToFirst()) {
-            String role = cursor.getString(0);
             cursor.close();
-
-            if ("admin".equalsIgnoreCase(role)) {
-                Toast.makeText(this, "Είσοδος ως Διαχειριστής (DB)", Toast.LENGTH_SHORT).show();
-                goToAdmin();
-            } else {
-                Toast.makeText(this, "Είσοδος ως Πελάτης (DB)", Toast.LENGTH_SHORT).show();
-                goToCustomer();
-            }
+            Toast.makeText(this, "Είσοδος ως Πελάτης (DB)", Toast.LENGTH_SHORT).show();
+            goToCustomer();
         } else {
             cursor.close();
             Toast.makeText(this, "Λάθος στοιχεία σύνδεσης", Toast.LENGTH_SHORT).show();
@@ -92,13 +74,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void goToCustomer() {
         Intent intent = new Intent(this, CustomerActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
-    }
-
-    private void goToAdmin() {
-        Intent intent = new Intent(this, AdminActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
