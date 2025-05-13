@@ -16,19 +16,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Δημιουργία πίνακα Κατηγοριών
+        // Πίνακας Κατηγοριών
         db.execSQL("CREATE TABLE categories (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL UNIQUE)");
 
-        // Δημιουργία πίνακα Υποκατηγοριών
+        // Πίνακας Υποκατηγοριών
         db.execSQL("CREATE TABLE subcategories (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name TEXT NOT NULL," +
                 "category_id INTEGER," +
                 "FOREIGN KEY (category_id) REFERENCES categories(id))");
 
-        // Δημιουργία πίνακα Προϊόντων
+        // Πίνακας Προϊόντων
         db.execSQL("CREATE TABLE products (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "title TEXT NOT NULL," +
@@ -38,12 +38,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 "subcategory_id INTEGER," +
                 "FOREIGN KEY (subcategory_id) REFERENCES subcategories(id))");
 
+        // ✅ ΝΕΟ: Πίνακας Χρηστών
+        db.execSQL("CREATE TABLE IF NOT EXISTS users (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "email TEXT NOT NULL UNIQUE," +
+                "username TEXT NOT NULL UNIQUE," +
+                "password TEXT NOT NULL," +
+                "role TEXT DEFAULT 'customer')");
+
         Log.d("DBHelper", "Database created successfully!");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Σε περίπτωση αναβάθμισης, drop και επαναδημιουργία
+        // Drop and recreate tables if upgrading
+        db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS products");
         db.execSQL("DROP TABLE IF EXISTS subcategories");
         db.execSQL("DROP TABLE IF EXISTS categories");
