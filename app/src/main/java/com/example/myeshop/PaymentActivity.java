@@ -52,7 +52,7 @@ public class PaymentActivity extends AppCompatActivity {
                 }, 5000);
 
             } else if (deliveryRadioButton.isChecked()) {
-                // ✅ Επιλέχθηκε Delivery
+                
                 Toast.makeText(this, "Επιλέξατε Delivery", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(PaymentActivity.this, DeliveryAddressActivity.class);
@@ -60,7 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
                 startActivity(intent);
 
             } else {
-                // ❌ Καμία επιλογή
+                
                 Toast.makeText(this, "Παρακαλώ επιλέξτε έναν τρόπο παράδοσης", Toast.LENGTH_SHORT).show();
             }
         });
